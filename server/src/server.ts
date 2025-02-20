@@ -10,12 +10,19 @@ const PORT = process.env.PORT || 3001;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Serve static files from the client build folder
-app.use(express.static(path.join(__dirname, '../client/dist')));
+// Serve static files from the client build folder (absolute path)
+app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
-// API routes or any other routes
-import routes from './routes/index.js'; // Ensure correct path for ES modules
+// Import routes
+import routes from './routes/index.js'; 
+
+// Use routes for API and other routes
 app.use(routes);
+
+// Serve index.html for all other routes (for single-page apps)
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
