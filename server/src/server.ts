@@ -24,5 +24,10 @@ app.use(cors());
 // ✅ Implement middleware to connect the routes
 app.use(routes);
 
+// ✅ Fallback route to serve index.html for all other routes (SPA support)
+app.get('*', (_req, res) => {
+  res.sendFile(path.resolve('client', 'dist', 'index.html'));
+});
+
 // ✅ Start the server
 app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
