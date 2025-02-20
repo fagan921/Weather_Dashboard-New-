@@ -1,19 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "ESNext",
+    "module": "ESNext",  // Ensure the module system is ESNext
     "moduleResolution": "Node",
-    "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "outDir": "./dist",  // Ensure output is in the dist folder
-    "rootDir": "./src",  // Ensure source files are in the src folder
-    "baseUrl": ".",      // Set base directory to root
+    "outDir": "./dist",  // Ensure output goes to 'dist'
+    "rootDir": "./src",  // Set the source folder
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*", "src/*"]
+    }
   },
   "include": [
-    "src/**/*"  // Include all files in the src folder
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",
