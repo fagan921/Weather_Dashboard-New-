@@ -14,30 +14,37 @@ const __dirname = path.dirname(__filename);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Optional: Parses form data
 
-// Enable CORS
-app.use(cors()); // If your frontend is hosted separately, CORS might be required
+// ✅ Enable CORS (useful if frontend is hosted separately)
+app.use(cors());
 
-// Serve static files from the client build folder (absolute path)
-app.use(express.static(path.resolve(__dirname, '../client/dist')));
+// ✅ Serve static files from the client `dist` folder
+const clientDistPath = path.resolve(__dirname, '../client/dist');
+app.use(express.static(clientDistPath));
 
-// Import routes
+console.log(`Serving static files from: ${clientDistPath}`);
+
+// ✅ Import API routes
 import routes from './routes/index.js';
-
-// Use routes for API and other routes
 app.use(routes);
 
-// Serve index.html for all other routes (for single-page apps)
+// ✅ Serve `index.html` for all non-API routes (SPA support)
 app.get('*', (req, res) => {
-    const indexPath = path.resolve(__dirname, '../client/dist/index.html');
+    const indexPath = path.join(clientDistPath, 'index.html');
     console.log(`Attempting to serve index.html from: ${indexPath}`);
+
     res.sendFile(indexPath, (err) => {
         if (err) {
-            console.error(`Error serving index.html: ${err}`);
-            res.status(500).send(err);
+            console.error(`Error serving index.html: ${err.message}`);
+    
+            // ✅ Ensure 'status' property exists before accessing it
+            const statusCode = (err as { status?: number }).status || 500;
+    
+            res.status(statusCode).send('Error serving frontend');
         }
     });
 });
 
+// ✅ Start the server
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
