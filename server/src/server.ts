@@ -28,7 +28,7 @@ app.use(routes);
 
 // Serve index.html for all other routes (for single-page apps)
 app.get('*', (req, res) => {
-    const indexPath = '/absolute/path/to/client/dist/index.html'; // Hardcoded path
+    const indexPath = path.resolve(__dirname, '../client/dist/index.html');
     console.log(`Attempting to serve index.html from: ${indexPath}`);
     res.sendFile(indexPath, (err) => {
         if (err) {
