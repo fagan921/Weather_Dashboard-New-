@@ -12,7 +12,7 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "client:build": "cd client && npm run build",
     "client:dev": "cd client && npm run dev",
-    "build": "npm install && cd server && npm install && npm run build && cd ../client && npm install && npm run build",
+    "build": "npm install && cd server && npm install && npm run build && cd ../client && npm install && vite build",
     "render-build": "npm run build"
   },
   "keywords": [],
