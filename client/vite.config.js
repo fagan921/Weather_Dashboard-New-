@@ -5,7 +5,8 @@ import path from 'path';
 export default defineConfig({
   // Specify build output directory
   build: {
-    outDir: path.resolve(__dirname, '../client/dist'), // Ensure output is in the server/client/dist folder
+    outDir: path.resolve(__dirname, 'dist'), // Correcting this to ensure it outputs to the client/dist folder
+    emptyOutDir: true, // Ensure the directory is emptied before building
   },
   
   // Development server configuration

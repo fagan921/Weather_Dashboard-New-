@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true })); // Optional: Parses form data
 app.use(cors()); // If your frontend is hosted separately, CORS might be required
 
 // Serve static files from the client build folder (absolute path)
-app.use(express.static(path.resolve(__dirname, 'client/dist')));
+app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
 // Import routes
 import routes from './routes/index.js';
@@ -28,7 +28,7 @@ app.use(routes);
 
 // Serve index.html for all other routes (for single-page apps)
 app.get('*', (req, res) => {
-    const indexPath = path.resolve(__dirname, 'client/dist', 'index.html');
+    const indexPath = path.resolve(__dirname, '../client/dist/index.html');
     console.log(`Attempting to serve index.html from: ${indexPath}`);
     res.sendFile(indexPath, (err) => {
         if (err) {
