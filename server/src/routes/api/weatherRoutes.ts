@@ -7,12 +7,15 @@ const router = Router();
 // POST request to fetch weather data and save city to search history
 router.post('/', async (req, res) => {
   try {
+    console.log("Request Body:", req.body); // ✅ Debug log
+
     const { city } = req.body;
+
     if (!city) {
       return res.status(400).json({ error: 'City name is required' });
     }
 
-    console.log("Fetching weather for:", city); // ✅ Debug log
+    console.log("Fetching weather for:", city);
 
     // Fetch weather data
     const weatherData = await WeatherService.getWeatherForCity(city);

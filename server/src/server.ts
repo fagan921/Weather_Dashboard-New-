@@ -10,11 +10,18 @@ const PORT = process.env.PORT || 3001;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// ✅ Middleware to parse JSON requests
+app.use(express.json());  // Add this line
+app.use(express.urlencoded({ extended: true })); // Optional: Parses form data
+
+// Enable CORS
+app.use(cors()); // If your frontend is hosted separately, CORS might be required
+
 // Serve static files from the client build folder (absolute path)
 app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
 // Import routes
-import routes from './routes/index.js'; 
+import routes from './routes/index.js';
 
 // Use routes for API and other routes
 app.use(routes);
