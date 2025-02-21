@@ -11,7 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // ✅ Middleware to parse JSON requests
-app.use(express.json());  // Add this line
+app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Optional: Parses form data
 
 // Enable CORS
@@ -28,16 +28,16 @@ app.use(routes);
 
 // Serve index.html for all other routes (for single-page apps)
 app.get('*', (req, res) => {
-    const indexPath = path.resolve(__dirname, '../client/dist', 'index.html');
+    const indexPath = '/absolute/path/to/client/dist/index.html'; // Hardcoded path
     console.log(`Attempting to serve index.html from: ${indexPath}`);
     res.sendFile(indexPath, (err) => {
-      if (err) {
-        console.error(`Error serving index.html: ${err}`);
-        res.status(500).send(err);
-      }
+        if (err) {
+            console.error(`Error serving index.html: ${err}`);
+            res.status(500).send(err);
+        }
     });
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
